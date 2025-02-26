@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Security.Cryptography.Xml;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -90,7 +91,8 @@ namespace sifimo
         {
             try
             {
-                _active = !_active;
+                if (_active) DesactiveSimulacion();
+
                 BorderMasa.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FBFFE4"));
                 BorderLarge.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FBFFE4"));
                 if (string.IsNullOrWhiteSpace(masa.Text))
@@ -101,7 +103,8 @@ namespace sifimo
                 {
                     BorderLarge.BorderBrush = new SolidColorBrush(Colors.Red);
                 }
-                if (!string.IsNullOrWhiteSpace(masa.Text) && !string.IsNullOrWhiteSpace(largeInput.Text)) ActiveSimulacion();
+                if (!_active &&!string.IsNullOrWhiteSpace(masa.Text) && !string.IsNullOrWhiteSpace(largeInput.Text)) ActiveSimulacion();
+                _active = !_active;
 
             }
             catch (Exception ex)
