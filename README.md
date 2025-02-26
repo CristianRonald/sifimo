@@ -23,9 +23,8 @@ Sifimo requiere .NET SDK para compilar y ejecutar el código.
 ### 1. Clonar el repositorio
 Abra una terminal o consola y ejecute el siguiente comando:
 ```sh
-git clone https://github.com/usuario/sifimo.git
+git clone https://github.com/CristianRonald/sifimo.git
 ```
-Reemplace `usuario` con el nombre correcto del repositorio.
 
 ### 2. Navegar al directorio del proyecto
 ```sh
@@ -60,5 +59,5 @@ Para Linux o macOS, reemplace `win-x64` con `linux-x64` o `osx-x64`.
 El ejecutable estará en la carpeta `publish/` y se puede ejecutar directamente.
 
 ## Contacto
-Para cualquier duda o consulta, por favor contacte a [correo@example.com](mailto:correo@example.com).
+Para cualquier duda o consulta, por favor contacte a [correo@example.com](mailto:porta.cristianlo@gmail.com).
 
