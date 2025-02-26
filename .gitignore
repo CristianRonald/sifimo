@@ -1,0 +1,47 @@
+# Visual Studio y Rider
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Archivos de compilación
+bin/
+obj/
+*.pdb
+*.ilk
+*.obj
+*.exe
+*.dll
+*.idb
+*.cache
+*.manifest
+*.tlog
+
+# Paquetes y dependencias
+packages/
+node_modules/
+
+# Configuraciones de usuario
+*.csproj.user
+*.suo
+*.psess
+*.vspx
+
+# Archivos de depuración
+*.log
+*.tmd
+
+# Publicaciones y despliegues
+publish/
+AppPackages/
+
+# Archivos de configuración de sistema
+app.config
+web.config
+
+# Archivos de diseño y depuración
+*.designer.cs
+*.resx
+
