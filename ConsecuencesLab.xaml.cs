@@ -62,6 +62,11 @@ namespace sifimo
 
         private void ActiveSimulacion()
         {
+            if (!string.IsNullOrWhiteSpace(masa.Text) && !string.IsNullOrWhiteSpace(largeInput.Text))
+            {
+                masa_relative.Text = $"m = {MasaRelativo(Int32.Parse(masa.Text), velocidad.Value):F2}kg";
+                large_ralative.Text = $"L = {LargoRelativo(Double.Parse(largeInput.Text), velocidad.Value):F2}m";
+            }
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             tiempo = TimeSpan.Zero;
@@ -72,6 +77,7 @@ namespace sifimo
         }
         private void DesactiveSimulacion()
         {
+            _active = false;
             textButton.Text = "Simular";
             tiempo = TimeSpan.Zero;
             tiempo_r = TimeSpan.Zero;
@@ -84,7 +90,7 @@ namespace sifimo
         {
             try
             {
-                
+                _active = !_active;
                 BorderMasa.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FBFFE4"));
                 BorderLarge.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FBFFE4"));
                 if (string.IsNullOrWhiteSpace(masa.Text))
@@ -95,17 +101,7 @@ namespace sifimo
                 {
                     BorderLarge.BorderBrush = new SolidColorBrush(Colors.Red);
                 }
-                if (!_active && !string.IsNullOrWhiteSpace(masa.Text) && !string.IsNullOrWhiteSpace(largeInput.Text))
-                {
-                    ActiveSimulacion();
-                    _active = true;
-                }
-                else if (_active)
-                {
-                    DesactiveSimulacion();
-                    _active = false;
-                }
-                 
+                if (!string.IsNullOrWhiteSpace(masa.Text) && !string.IsNullOrWhiteSpace(largeInput.Text)) ActiveSimulacion();
 
             }
             catch (Exception ex)
@@ -116,28 +112,26 @@ namespace sifimo
 
         private void velocidad_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            
             VelocidadLuz.Text = $"{velocidad.Value:F1}c";
             velocidadNaveSpacial = 5;
             if (velocidad.Value > 0) velocidadNaveSpacial = 0.4 / velocidad.Value;
-            //MessageBox.Show(velocidadNaveSpacial.ToString());
-
-            if (_active)
+            if (!_active) return;
+            if (!string.IsNullOrWhiteSpace(masa.Text) && !string.IsNullOrWhiteSpace(largeInput.Text))
             {
-                navespacial.RenderTransform.BeginAnimation(TranslateTransform.XProperty, null);
-                
                 masa_relative.Text = $"m = {MasaRelativo(Int32.Parse(masa.Text), velocidad.Value):F2}kg";
                 large_ralative.Text = $"L = {LargoRelativo(Double.Parse(largeInput.Text), velocidad.Value):F2}m";
             }
-            if(!_active) AnimateImage(velocidadNaveSpacial);
+            ActiveSimulacion();
         }
-        private void FinalizarSimulacion(object sender, EventArgs e ) 
+        private void FinalizarSimulacion(object sender, EventArgs e)
         {
             MessageBox.Show("La simulacion ha finalizado.");
             DesactiveSimulacion();
         }
         private void AnimateImage(double v)
         {
-
+            
             TranslateTransform transform = new TranslateTransform();
             navespacial.RenderTransform = transform;
 
@@ -148,7 +142,7 @@ namespace sifimo
                 Duration = TimeSpan.FromSeconds(v)
             };
             animation.Completed += FinalizarSimulacion;
-            transform.BeginAnimation(TranslateTransform.XProperty, animation);   
+            transform.BeginAnimation(TranslateTransform.XProperty, animation);
         }
     }
 }
